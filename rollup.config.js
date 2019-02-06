@@ -9,6 +9,5 @@ export default {
       file: 'dist/index.esm.js',
       format: 'esm'
     }
-  ],
-  external: ['module', 'url']
+  ]
 }

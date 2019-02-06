@@ -1,5 +1,4 @@
-import { builtinModules } from 'module'
-import { resolve } from 'url'
+import { resolve, isUrl, isPath } from './url.js'
 
 export default function urlImport(options = {}) {
   const cache = new Map()
@@ -12,14 +11,14 @@ export default function urlImport(options = {}) {
       } else if (isUrl(importer)) {
         if (isPath(importee)) {
           return resolve(importer, importee)
-        } else if (options.jspm && !builtinModules.includes(importee)) {
+        } else if (options.jspm) {
           return 'https://dev.jspm.io/' + importee
         }
       }
       return null
     },
     load(id) {
-      if (id.startsWith('http:') || id.startsWith('https:')) {
+      if (isUrl(id)) {
         if (cache.has(id)) {
           return cache.get(id)
         }
@@ -39,6 +38,12 @@ export default function urlImport(options = {}) {
 }
 
 function fetchText(url) {
+  // Deno / browser
+  if (typeof fetch === 'function') {
+    return fetch(url).then(r => r.text())
+  }
+
+  // Node
   return new Promise((resolve, reject) => {
     const http = url.startsWith('https') ? require('https') : require('http')
     const request = http.get(url, response => {
@@ -46,17 +51,10 @@ function fetchText(url) {
         reject(new Error('Error statusCode ' + response.statusCode))
       }
       const body = []
+      response.setEncoding('utf8')
       response.on('data', chunk => body.push(chunk))
       response.on('end', () => resolve(body.join('')))
     })
     request.on('error', err => reject(err))
   })
-}
-
-function isUrl(str) {
-  return str && (str.startsWith('http:') || str.startsWith('https:'))
-}
-
-function isPath(str) {
-  return str && (str.startsWith('.') || str.startsWith('/'))
 }

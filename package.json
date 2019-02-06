@@ -9,7 +9,7 @@
     "build": "rollup -c",
     "dev": "rollup -cw",
     "lint": "prettier --write rollup.config.js src/**",
-    "test": "cd test && rollup -c && rm -rf output && echo 'Test successful' || cd ..",
+    "test": "cd test && rm -rf output && rollup -c && echo 'Test successful' || cd ..",
     "prepublish": "npm run build"
   },
   "keywords": [
