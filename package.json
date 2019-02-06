@@ -1,0 +1,41 @@
+{
+  "name": "rollup-plugin-url-import",
+  "version": "0.1.0",
+  "description": "Rollup plugin that resolves url imports",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.es.js",
+  "jsnext:main": "dist/index.es.js",
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -cw",
+    "lint": "prettier --write rollup.config.js src/**",
+    "test": "cd test && rollup -c && rm -rf output && echo 'Test successful' || cd ..",
+    "prepublish": "npm run build"
+  },
+  "keywords": [
+    "rollup",
+    "rollup-plugin",
+    "url-import",
+    "import-url",
+    "deno"
+  ],
+  "license": "MIT",
+  "author": "Thomas Ghysels <info@thomasg.be>",
+  "homepage": "https://github.com/thgh/rollup-plugin-url-import",
+  "bugs": {
+    "url": "https://github.com/thgh/rollup-plugin-url-import/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thgh/rollup-plugin-url-import"
+  },
+  "files": [
+    "dist"
+  ],
+  "peerDependencies": {
+    "rollup": "^1.0.0"
+  },
+  "devDependencies": {
+    "rollup": "1"
+  }
+}
