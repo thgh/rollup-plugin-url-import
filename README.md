@@ -31,6 +31,7 @@ export default {
 
 ```js
 // input.js
+import 'https://deno.land/thumb.ts'
 import leftPad from 'https://dev.jspm.io/left-pad'
 
 console.log(leftPad('test', 8))

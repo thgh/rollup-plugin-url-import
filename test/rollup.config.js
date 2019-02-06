@@ -3,7 +3,8 @@ import urlImport from '../dist/index.esm.js'
 
 const eval2 = eval
 const tests = {
-  'left-pad.js': '   3spaces'
+  'left-pad.js': '   3spaces',
+  'thumbs.js': '👍'
 }
 
 export default Object.entries(tests).map(([file, expected]) => ({
@@ -16,8 +17,12 @@ export default Object.entries(tests).map(([file, expected]) => ({
     urlImport({ verbose: true, jspm: true }),
     {
       writeBundle(bundle) {
+        const { log } = console
+        console.log = function (actual) {
+          assert.equal(actual, expected)
+        }
         const output = eval2(bundle[file].code)
-        assert.ok(output, expected)
+        console.log = log
       }
     }
   ]
