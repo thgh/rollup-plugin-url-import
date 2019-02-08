@@ -1,21 +1,14 @@
-import { resolve, isUrl, isPath } from './url.js'
+import { resolveModule, isUrl } from './resolve.js'
+
+const cache = new Map()
 
 export default function urlImport(options = {}) {
-  const cache = new Map()
-
   return {
     name: 'urlImport',
-    resolveId(importee, importer) {
-      if (isUrl(importee)) {
-        return importee
-      } else if (isUrl(importer)) {
-        if (isPath(importee)) {
-          return resolve(importer, importee)
-        } else if (options.jspm) {
-          return 'https://dev.jspm.io/' + importee
-        }
+    resolveId(specifier, referrer) {
+      if (isUrl(specifier) || isUrl(referrer)) {
+        return resolveModule(specifier, referrer)
       }
-      return null
     },
     load(id) {
       if (isUrl(id)) {

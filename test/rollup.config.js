@@ -5,6 +5,7 @@ const eval2 = eval
 const tests = {
   'left-pad.js': '   3spaces',
   'thumbs.js': '👍',
+  'chain.js': '👍',
   'rollup.js': null
 }
 
