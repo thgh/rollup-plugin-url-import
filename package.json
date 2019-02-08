@@ -1,6 +1,6 @@
 {
   "name": "rollup-plugin-url-import",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Rollup plugin that resolves url imports",
   "main": "dist/index",
   "module": "dist/index.mjs",
