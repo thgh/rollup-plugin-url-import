@@ -6,7 +6,8 @@ const tests = {
   'left-pad.js': '   3spaces',
   'thumbs.js': '👍',
   'chain.js': '👍',
-  'rollup.js': null
+  'rollup.js': null,
+  'redirects.js': '   6spaces   '
 }
 
 export default Object.entries(tests).map(([file, expected]) => ({

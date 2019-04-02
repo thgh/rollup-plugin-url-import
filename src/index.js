@@ -30,7 +30,7 @@ export default function urlImport(options = {}) {
   }
 }
 
-function fetchText(url) {
+function fetchText(url, redirects = 0) {
   // Deno / browser
   if (typeof fetch === 'function') {
     return fetch(url).then(r => r.text())
@@ -40,8 +40,22 @@ function fetchText(url) {
   return new Promise((resolve, reject) => {
     const http = url.startsWith('https') ? require('https') : require('http')
     const request = http.get(url, response => {
-      if (response.statusCode < 200 || response.statusCode > 299) {
-        reject(new Error('Error statusCode ' + response.statusCode))
+      if ((response.statusCode < 200 || response.statusCode > 299)) {
+        const location = response.headers && response.headers.location
+
+        if (location) {
+          if (redirects > 3) {
+            reject(new Error('Too many redirects ' + url));
+          }
+
+          const redirection = location.startsWith('http')
+                ? location
+                : require('url').resolve(url, location)
+
+          return fetchText(redirection, redirects + 1).then(resolve, reject);
+        } else {
+          reject(new Error('Error statusCode ' + response.statusCode));
+        }
       }
       const body = []
       response.setEncoding('utf8')
