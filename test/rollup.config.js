@@ -1,5 +1,5 @@
 import assert from 'assert'
-import urlImport from '../dist/index.esm.js'
+import urlImport from '../dist/index.mjs'
 
 const eval2 = eval
 const tests = {
