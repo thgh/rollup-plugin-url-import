@@ -1,5 +1,5 @@
 import { rollup } from 'https://dev.jspm.io/npm:rollup@1.1.2/dist/rollup.browser.es.js'
-import urlImport from '../../dist/index.esm.js'
+import urlImport from '../../dist/index.mjs'
 
 rollupInput = 'input/thumbs.js'
 

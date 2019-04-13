@@ -1,1 +1,1 @@
-import 'thumbs.js'
+import './thumbs.js'
