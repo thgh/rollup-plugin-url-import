@@ -40,21 +40,21 @@ function fetchText(url, redirects = 0) {
   return new Promise((resolve, reject) => {
     const http = url.startsWith('https') ? require('https') : require('http')
     const request = http.get(url, response => {
-      if ((response.statusCode < 200 || response.statusCode > 299)) {
+      if (response.statusCode < 200 || response.statusCode > 299) {
         const location = response.headers && response.headers.location
 
         if (location) {
           if (redirects > 3) {
-            reject(new Error('Too many redirects ' + url));
+            reject(new Error('Too many redirects ' + url))
           }
 
           const redirection = location.startsWith('http')
-                ? location
-                : require('url').resolve(url, location)
+            ? location
+            : require('url').resolve(url, location)
 
-          return fetchText(redirection, redirects + 1).then(resolve, reject);
+          return fetchText(redirection, redirects + 1).then(resolve, reject)
         } else {
-          reject(new Error('Error statusCode ' + response.statusCode));
+          reject(new Error('Error statusCode ' + response.statusCode))
         }
       }
       const body = []

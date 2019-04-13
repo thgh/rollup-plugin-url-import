@@ -1,6 +1,6 @@
 {
   "name": "rollup-plugin-url-import",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Rollup plugin that resolves url imports",
   "main": "dist/index",
   "module": "dist/index.mjs",
@@ -10,6 +10,7 @@
     "dev": "rollup -cw",
     "lint": "prettier --write rollup.config.js src/**",
     "test": "cd test && rm -rf output && rollup -c && echo 'Test successful' || cd ..",
+    "pub": "yarn version --minor && npm publish",
     "prepublish": "npm run build"
   },
   "keywords": [
